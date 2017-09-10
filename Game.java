@@ -7,12 +7,55 @@ public class Game {
    //私有的属性
 	private Room currentRoom;
 	private HashMap<String, Handler> handlers = new HashMap<>();
+	
+	//内部类，实现命令效果
+		private abstract class Handler{
+			public void doCmd(String word) {
+				
+			}
+			public boolean isBye() {
+				return false;
+			}
+		}
+		//help
+//		private class HandlerHelp extends Handler{
+//			public void doCmd(String word) {
+//				System.out.println("迷路了吗？你可以做的命令有：go bye help");
+//		        System.out.println("如：\tgo east");
+//			}
+//		}
+		//bye
+//		private class HandlerBye extends Handler{
+//			public boolean isBye() {
+//				return true;
+//			}
+//		}
+		//go
+//		private class HandlerGo extends Handler{
+//			public void doCmd(String word) {
+//			goRoom(word);
+//			}
+//		}
+//		
    //构造器     
     public Game() 
     {
-    	handlers.put("go", new HandlerGo(this));
-    	handlers.put("bye", new HandlerBye(this));
-    	handlers.put("help", new HandlerHelp(this));
+    	handlers.put("go", new Handler() {
+    		public void doCmd(String word) {
+    			goRoom(word);
+    		}
+    	});
+    	handlers.put("bye", new Handler() {
+    		public boolean isBye() {
+				return true;
+			}
+    	});
+    	handlers.put("help", new Handler() {
+    		public void doCmd(String word) {
+				System.out.println("迷路了吗？你可以做的命令有：go bye help");
+		        System.out.println("如：\tgo east");
+			}
+    	});
         createRooms();
     }
 

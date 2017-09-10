@@ -9,6 +9,28 @@ public class Game {
 	private HashMap<String, Handler> handlers = new HashMap<>();
 	
 	//内部类，实现命令效果
+	private class Handler{
+		public void doCmd(String word) {
+			
+		}
+		public boolean isBye() {
+			return false;
+		}
+	}
+	//help
+	private class HandlerHelp extends Handler{
+		public void doCmd(String word) {
+			System.out.println("迷路了吗？你可以做的命令有：go bye help");
+	        System.out.println("如：\tgo east");
+		}
+	}
+	//bye
+	private class HandlerBye extends Handler{
+		public boolean isBye() {
+			return true;
+		}
+	}
+	//go
 	private class HandlerGo extends Handler{
 		public void doCmd(String word) {
 		goRoom(word);

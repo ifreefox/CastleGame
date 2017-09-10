@@ -7,12 +7,21 @@ public class Game {
    //私有的属性
 	private Room currentRoom;
 	private HashMap<String, Handler> handlers = new HashMap<>();
+	
+	//内部类，实现命令效果
+	private class HandlerGo extends Handler{
+		public void doCmd(String word) {
+		goRoom(word);
+		}
+	}
+	
+	
    //构造器     
     public Game() 
     {
-    	handlers.put("go", new HandlerGo(this));
-    	handlers.put("bye", new HandlerBye(this));
-    	handlers.put("help", new HandlerHelp(this));
+    	handlers.put("go", new HandlerGo());
+    	handlers.put("bye", new HandlerBye());
+    	handlers.put("help", new HandlerHelp());
         createRooms();
     }
 
